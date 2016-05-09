@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				overflow:hidden;
+			}
+		</style>
+		<script src="SpaceObject.js">
+		</script>
+		<script src="tools.js">
+		</script>
+		<script src="ScoreBoard.js">
+		</script>
+                <script src="SoundBank.js">
+		</script>
+                
+		<script>
+                        //stops rocket from crashing,       
+			var debug=1;
+                        //the arguments for scorrboard 
+			var scoreBoard=new ScoreBoard(2,"orange",100,50,0,3,"rocket.gif","score",40,1000);
+                        
+			var rosetta,commets;
+			var cometsNumber=5;	
+                        var soundBank=new SoundBank();
+                        
+                       // soundBank.mute();
+                        
+		</script>
+	</head>
+	<body bgcolor="black" onload="run()" onkeypress="movement()">
+		
+		
+	</body>
+</html>
