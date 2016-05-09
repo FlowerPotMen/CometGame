@@ -19,7 +19,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 	this.spin=0;
         this.timerId = 0;
         this.collision = 0;
-        
+        this.radius = this.width/2;
         
         //METHODS
         //*******

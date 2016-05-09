@@ -5,68 +5,7 @@ function randomNumber(max) {
 	
 			return Math.floor((Math.random() * max) + 1);
 } 
-//chekes for a crash 
-function checkCrash(){
 
-    //has lander crashed 
-    for (i=0;i<commets.length;i++){
-            if (checkOverlap(rosetta, commets[i])==1){
-                    // stopes me from dieing or what im calling and reset 
-                    if (debug!=1){
-
-                            // score board lose life comets go
-                            clearInterval(timerId);
-                            scoreBoard.loseLife();
-                            
-                                   rosetta.die();
-                            soundBank.play("boom");
-                            delete rosetta;
-                                    
-                                    rosetta.die();
-                            soundBank.play("boom");
-                            delete rosetta;
-                            
-                            }
-                            
-                            //if rosetta dies deleat her 
-                           /* rosetta.die();
-                            soundBank.play("boom");
-                            delete rosetta;*/
-                            
-                            // if the score is 0 bring up endscreen 
-                            if (scoreBoard.lives == 0){
-
-                                soundBank.play("sadNoise");
-                            
-                                endScreen=new ScoreBoard(0,"white",700,100,scoreBoard.score,0,"","Game Over",72);
-                                endScreen.setup();
-                                return;
-                            }
-                            // if lives arnt 0 reset witch resets every thing but the score
-                            else{
-                                setTimeout(function(){reset()},3000);
-                                    //scoreBoard.addScore(-10);
-                            }
-
-
-
-                    }
-
-            }
-    }
-    //have comets collided
-    for (q=0;q<commets.length;q++){
-            for (j=q+1;j<commets.length;j++){
-                    if (checkOverlap(commets[q],commets[j])==1){
-
-                            /*commets[q].oppositeDirection();
-                            commets[j].oppositeDirection();
-                            //alert ("friendly fire");*/
-                            bounce(commets[q], commets[j]);
-                    }
-            }
-    }
-}
 //chekes if two objects are over lapping 
 /*function checkOverlap(objectA, objectB){
 	
@@ -226,11 +165,17 @@ function reset(){
 //sets every thing up at start
 function run(){
 		
-				
-				scoreBoard.setup();
+    scoreBoard.setup();
                                 
-                                soundBank.play("countDown");
-                                setTimeout(reset,7000);
+    soundBank.play("countDown");
+    if (soundBank.on==1){
+         setTimeout(reset,7000);    
+    }
+    else {
+        reset();
+    }
+                                    
+                                
 								
 }
 // binds keys to there movement and moves them
@@ -291,43 +236,38 @@ function scoreBoard(){
 	sB.appendChild(pic);
 	
 }
-function bounce(obj1,obj2){
-    
-    //obj1.stop();
-    //obj2.stop();
-    
-    var m1 = parseInt(obj1.width * obj1.height);
-    var m2 = parseInt(obj2.width * obj2.height);
-    
-    var dx = (obj1.x + (obj1.width/2)) - (obj2.x + (obj2.width/2));
-    var dy = (obj1.y + (obj1.height/2)) - (obj2.y + (obj2.height/2));
-    
-    var ca = Math.atan2(dy,dx);
-    
-    var mag1 = Math.sqrt((obj1.directionLeft*obj1.directionLeft)+
-                          (obj1.directionUp * obj1.directionUp));
-                  
-    var mag2 = Math.sqrt((obj2.directionLeft*obj2.directionLeft)+
-                        (obj2.directionUp * obj2.directionUp));
-    
-    var d1 = Math.atan2(obj1.directionUp,obj1.directionLeft);
-    var d2 = Math.atan2(obj2.directionUp,obj2.directionLeft);
-    
-    var newx1 = mag1 * Math.cos(d1 - ca);
-    var newy1 = mag1 * Math.sin(d1 - ca);
-    var newx2 = mag2 * Math.cos(d2 - ca);
-    var newy2 = mag2 * Math.sin(d2 - ca);
-    
-    var finalx1 = ((m1-m2)*newx1+(m2+m2)*newx2)/(m1+m2);
-    var finalx2 = ((m1+m1)*newx1+(m2-m1)*newx2)/(m1+m2);
-    var finaly1 = newy1;
-    var finaly2 = newy2;
-    
-    obj1.directionLeft = Math.cos(ca)*finalx1+Math.cos(ca+Math.PI/2)*finaly1;
-    obj1.directionUp   = Math.sin(ca)*finalx1+Math.sin(ca+Math.PI/2)*finaly1;
-    obj2.directionLeft = Math.cos(ca)*finalx2+Math.cos(ca+Math.PI/2)*finaly2;
-    obj2.directionUp   = Math.sin(ca)*finalx2+Math.sin(ca+Math.PI/2)*finaly2;
-}
+
+ function bounce(obj1,obj2){
+        
+            newVelX1 = (obj1.directionLeft * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionLeft)) / (obj1.radius + obj2.radius);
+            newVelY1 = (obj1.directionUp * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionUp)) / (obj1.radius + obj2.radius);
+            newVelX2 = (obj2.directionLeft * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionLeft)) / (obj1.radius + obj2.radius);
+            newVelY2 = (obj2.directionUp * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionUp)) / (obj1.radius + obj2.radius);
+            //obj1.clearLast();
+            //obj2.clearLast();         
+            obj1.x = obj1.x + newVelX1;
+            obj1.y = obj1.y + newVelY1;
+            obj2.x = obj2.x + newVelX2;
+            obj2.y = obj2.y + newVelY2;
+            
+
+            
+            obj1.directionLeft = newVelX1;
+            obj1.directionUp = newVelY1;
+            //obj1.init();
+            obj2.directionLeft = newVelX2;
+            obj2.directionUp = newVelY2;
+            
+            
+            //obj1.radius++;
+            //obj2.radius--;
+            
+            //if (obj2.radius == 1){
+            //    Balls.delete(obj2.name);
+            //}
+            
+        
+    }
 
 
 
