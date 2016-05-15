@@ -18,8 +18,9 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 	this.bodyPos;
 	this.spin=0;
         this.timerId = 0;
-        this.collision = 0;
         this.radius = this.width/2;
+        this.collision=[];
+        this.collCount =0;
         
         //METHODS
         //*******
@@ -29,13 +30,13 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 		
 		for(i=0;i<this.directionUp;i++){
 			this.moveUp();
-                        checkCollide(this);
+                        //checkCollide(this);
                            
 		}
 		
 		for(i=0;i<this.directionLeft;i++){
 			this.moveLeft();
-                        checkCollide(this);
+                        //checkCollide(this);
                         /*if (checkCollide(this)==1){
                             return;
                         }*/
@@ -43,14 +44,14 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 		
 		for(i=0;i>this.directionUp;i--){
 			this.moveDown();
-                        checkCollide(this);
+                        //checkCollide(this);
                         /*if (checkCollide(this)==1){
                             return;
                         }*/
 		}
 		for(i=0;i>this.directionLeft;i--){
 			this.moveRight();
-                        checkCollide(this);
+                        //checkCollide(this);
                         /*if (checkCollide(this)==1){
                             return;
                         }*/
@@ -229,19 +230,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 		
 	}
 	
-	//return current location
-	this.locate=function(){
-			var borderPercent=15;
-			var w=this.width*(borderPercent/100);
-			var h=this.height*(borderPercent/100);
-			
-			return [
-					this.x+(w/2),
-					this.y+(h/2), 
-					this.width-w,
-					this.height-h
-					];
-	}
+
 	//things that get called for the reset function
 	this.reset=function(){
 			this.image=img;
@@ -350,6 +339,8 @@ function comet(img, health, speed, height,width, direction, name, y, x, moveAngl
 		this.pic.style.top=this.y;
 		this.pic.style.left=this.x;
 		this.pic.id=this.name;
+                this.setBorder(2,"#FF0000")
+
 		
 
 		//makes the start position random
@@ -365,6 +356,11 @@ function comet(img, health, speed, height,width, direction, name, y, x, moveAngl
 		},this.speed);
 		
 	}
+        
+        this.setBorder=function(width,color){
+            
+            this.pic.style.border=width + "px solid " + color;
+        }
 		
 		
 	
