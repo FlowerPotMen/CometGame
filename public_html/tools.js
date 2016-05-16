@@ -11,6 +11,7 @@ function randomNumber(max) {
 } 
 
 
+
 //cheacks for over lap
 function checkOverlap(obj1,obj2){
     var distanceX=Math.abs(obj1.x-obj2.x);
@@ -42,17 +43,17 @@ function createCommets(count){
     var c=[];
 
     for (i = 0; i <count;i++){
-            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300));
+            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300),randomNumber(25)-15,randomNumber(25)-15));
 
 
     }
-				
-			return c;
+	
+    return c;
 }			
 
 function reset(){
     // creates rosetta 
-    rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300);
+    rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300,0,0);
     // creats comets 
     commets=createCommets(cometsNumber);
 
@@ -60,8 +61,7 @@ function reset(){
     //creates the comets until they have comets lenght				
     for (i = 0; i < commets.length; i++) { 
 
-
-            commets[i].setup();
+        commets[i].setup();
     }
     timerId = setInterval(function(){					 
 
@@ -77,10 +77,9 @@ function reset(){
 
 
             //check crashes
-            //checkCollide();					
+            checkCollide();					
 
-    },50);
-
+    },10);
 
 }
 
@@ -161,10 +160,10 @@ function scoreBoard(){
 
  function bounce(obj1,obj2){
         
-            newVelX1 = (obj1.directionLeft * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionLeft)) / (obj1.radius + obj2.radius);
-            newVelY1 = (obj1.directionUp * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionUp)) / (obj1.radius + obj2.radius);
-            newVelX2 = (obj2.directionLeft * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionLeft)) / (obj1.radius + obj2.radius);
-            newVelY2 = (obj2.directionUp * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionUp)) / (obj1.radius + obj2.radius);
+            newVelX1 = (obj1.dx * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.dx)) / (obj1.radius + obj2.radius);
+            newVelY1 = (obj1.dy * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.dy)) / (obj1.radius + obj2.radius);
+            newVelX2 = (obj2.dx * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.dx)) / (obj1.radius + obj2.radius);
+            newVelY2 = (obj2.dy * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.dy)) / (obj1.radius + obj2.radius);
             //obj1.clearLast();
             //obj2.clearLast();         
             obj1.x = obj1.x + newVelX1;
@@ -174,63 +173,75 @@ function scoreBoard(){
             
 
             
-            obj1.directionLeft = newVelX1;
-            obj1.directionUp = newVelY1;
+            obj1.dx = newVelX1;
+            obj1.dy = newVelY1;
             //obj1.init();
-            obj2.directionLeft = newVelX2;
-            obj2.directionUp = newVelY2;
+            obj2.dx = newVelX2;
+            obj2.dy = newVelY2;
             
             
-            //obj1.radius++;
-            //obj2.radius--;
-            
-            //if (obj2.radius == 1){
-            //    Balls.delete(obj2.name);
-            //}
+
             
         
     }
-
-
-
-function checkCollide(from){
     
+    
+function checkCollide(){
     var objects = commets.slice(0);
-    objects.unshift(rosetta);
     
-    for (var i=0;i<objects.length-1;i++){
+        for (var i=0;i<cometsNumber;i++){
         
-        for (var j=i+1;j<objects.length-1;j++)
-        
-        //if (objects[i].name != from.name){
-            if (checkOverlap(objects[i],objects[j]) ==1){
-                
-                
-                
-                //is it rosetta?
-                
-                if (i == 0){
+            for (var j=0;j<cometsNumber;j++){
+    
+                if (j != i){
                     
+                    var firstComet = objects[i];
+                    var secondComet = objects[j];
                     
-                }
-                
-                else{
-               
+                    if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) < (secondComet.width/2 + firstComet.width/2) &&
+                        Math.abs ((secondComet.y + (secondComet.height/2)) - (firstComet.y + (firstComet.height/2)) ) < (secondComet.height/2 + firstComet.height/2) &&
+                            (firstComet.collision[secondComet.name]!=1 || secondComet.collision[firstComet.name]!=1)     ){
                     
+                        firstComet.setBorder(2,"#00FF00")
+                        secondComet.setBorder(2,"#00FF00")
+                    
+                        firstComet.collision[secondComet.name]=1;
+                        secondComet.collision[firstComet.name]=1;
+                        firstComet.collCount++;
+                        secondComet.collCount++;
                         
-                        bounce(objects[i],objects[j]);
-                        return 1;
+                        bounce(firstComet,secondComet);
+                    }
                     
+                    else if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) > (secondComet.width/2 + firstComet.width/2) ||
+                        Math.abs ((secondComet.y + (secondComet.height/2)) - (firstComet.y + (firstComet.height/2)) ) > (secondComet.height/2 + firstComet.height/2)){
+                        
+                        if (firstComet.collision[secondComet.name] == 1 &&
+                            secondComet.collision[firstComet.name] == 1   ){
+                            delete firstComet.collision[secondComet.name];
+                            delete secondComet.collision[firstComet.name];
+                            firstComet.collCount--;
+                            secondComet.collCount--;                          
 
+                        }
+                        if (firstComet.collCount == 0){
+                            firstComet.setBorder(2,"#FF0000")
+                        }
+                        if (secondComet.collCount ==0){
+                            secondComet.setBorder(2,"#FF0000")
+                        }
+                        
+                    }
                 }
-                
-                    
+    
+    
             }
-
-        //}
-    }
-        
+        }
 }
+
+
+
+
 
 
     
