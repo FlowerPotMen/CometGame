@@ -52,7 +52,7 @@ function createCommets(count){
     var c=[];
 
     for (i = 0; i <count;i++){
-            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300),randomNumber(25)-15,randomNumber(25)-15));
+            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300),randomNumber(25)-15,randomNumber(25)-15);
 
 
     }
@@ -188,10 +188,11 @@ function scoreBoard(){
     
 function checkCollide(){
     var objects = commets.slice(0);
+    objects.unshift(rosetta);
     
         for (var i=0;i<cometsNumber;i++){
         
-            for (var j=0;j<cometsNumber;j++){
+            for (var j=1;j<cometsNumber;j++){
     
                 if (j != i){
                     
@@ -201,6 +202,12 @@ function checkCollide(){
                     if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) < (secondComet.width/2 + firstComet.width/2) &&
                         Math.abs ((secondComet.y + (secondComet.height/2)) - (firstComet.y + (firstComet.height/2)) ) < (secondComet.height/2 + firstComet.height/2) &&
                             (firstComet.collision[secondComet.name]!=1 || secondComet.collision[firstComet.name]!=1)     ){
+                        
+                        
+                     /*   if (i==0){
+                            console.log ("Rosetta crash");
+                            return;
+                        }*/
                     
                         firstComet.setBorder(2,"#00FF00")
                         secondComet.setBorder(2,"#00FF00")

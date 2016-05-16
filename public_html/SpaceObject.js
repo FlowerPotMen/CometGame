@@ -145,8 +145,8 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 	
 	//changes the direction
 	this.changeDirection=function(left,up){
-		this.dy+=(up/2);
-		this.dx+=(left/2);
+		this.dy-=(up/2);
+		this.dx-=(left/2);
 	}
 	//changes the direction of the object sends object in opposite direction 
 	this.oppositeDirection=function(){
@@ -369,6 +369,12 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
             
             
         }
+        this.setBorder=function(width,color){
+            if (debug==1){
+                
+                 this.pic.style.border=width + "px solid " + color;
+            }  
+        }
 }
 
 
@@ -417,8 +423,10 @@ function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){
 		this.pic.style.position="absolute";
 		this.pic.style.top=this.y;
 		this.pic.style.left=this.x;
-		this.pic.id=this.name;
-                this.setBorder(2,"#FF0000")
+		this.pic.id=this.name;          
+                this.setBorder(2,"#FF0000") 
+             
+                
 
 		
 
@@ -436,10 +444,7 @@ function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){
 		
 	}
         
-        this.setBorder=function(width,color){
-            
-            this.pic.style.border=width + "px solid " + color;
-        }
+        
 		
 		
 	
