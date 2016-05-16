@@ -40,6 +40,15 @@ function checkOverlap(obj1,obj2){
 //creates comets  
 function createCommets(count){
 		
+			var c=[];
+			
+			for (i = 0; i <count;i++){
+				c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300,randomNumber(25)-15,randomNumber(25)-15));
+				
+			
+			}
+				
+			return c;
     var c=[];
 
     for (i = 0; i <count;i++){
@@ -65,22 +74,13 @@ function reset(){
     }
     timerId = setInterval(function(){					 
 
-        counter++;
-
-        if (counter==3){
-            scoreBoard.addScore(1);
-            counter=0;
-        }
-
-    //scoreBoard.addScore(1); 
-
-
-
-            //check crashes
-            checkCollide();					
-
-    },10);
-
+					
+					//check crashes
+					checkCollide();					
+					
+				},10);
+	
+	
 }
 
 //sets every thing up at start
