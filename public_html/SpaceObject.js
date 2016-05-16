@@ -1,3 +1,7 @@
+//SpaceObjects.js where all the space objects live in a happy harmony.
+//********************************************************************
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 	this.image=img;
 	this.health=health;
@@ -23,6 +27,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
         
         //METHODS
         //*******
+        //@@@@@@@
         
 	//moves objects 
 	this.move=function(){

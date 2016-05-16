@@ -1,13 +1,17 @@
+//Tolls.js full of fun and excing functions to enter tain you and your friends.
+//*****************************************************************************
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 var timerId;
 var counter=0;
 // creates a random Number
 function randomNumber(max) {
 	
-			return Math.floor((Math.random() * max) + 1);
+    return Math.floor((Math.random() * max) + 1);
 } 
 
 
-
+//cheacks for over lap
 function checkOverlap(obj1,obj2){
     var distanceX=Math.abs(obj1.x-obj2.x);
     var distanceY=Math.abs(obj1.y-obj2.y);
@@ -25,59 +29,61 @@ function checkOverlap(obj1,obj2){
         
         
     }
+    
    else if(distance>radius) {
        obj1.collision=0;
-       obj2.collision=0;
-       
+       obj2.collision=0;    
    }
 }
+
 //creates comets  
 function createCommets(count){
 		
-			var c=[];
-			
-			for (i = 0; i <count;i++){
-				c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300));
-				
-			
-			}
+    var c=[];
+
+    for (i = 0; i <count;i++){
+            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300));
+
+
+    }
 				
 			return c;
 }			
 
 function reset(){
-				// creates rosetta 
-				rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300);
-				// creats comets 
-				commets=createCommets(cometsNumber);
+    // creates rosetta 
+    rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300);
+    // creats comets 
+    commets=createCommets(cometsNumber);
 
-				rosetta.setup();
-				//creates the comets until they have comets lenght				
-				for (i = 0; i < commets.length; i++) { 
-				
+    rosetta.setup();
+    //creates the comets until they have comets lenght				
+    for (i = 0; i < commets.length; i++) { 
 
-					commets[i].setup();
-				}
-				timerId = setInterval(function(){					 
-				
-                                    counter++;
-				
-                                    if (counter==3){
-					scoreBoard.addScore(1);
-					counter=0;
-                                    }
-				
-				//scoreBoard.addScore(1); 
-					
 
-					
-					//check crashes
-					//checkCollide();					
-					
-				},50);
-	
-	
+            commets[i].setup();
+    }
+    timerId = setInterval(function(){					 
+
+        counter++;
+
+        if (counter==3){
+            scoreBoard.addScore(1);
+            counter=0;
+        }
+
+    //scoreBoard.addScore(1); 
+
+
+
+            //check crashes
+            //checkCollide();					
+
+    },50);
+
+
 }
+
 //sets every thing up at start
 function run(){
 		

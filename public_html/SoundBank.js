@@ -1,3 +1,7 @@
+//SoundBank.js packed to the brim with funny, sad and just compleatly wacky noises.
+//*********************************************************************************
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 function SoundBank (){
    this.on=1; 
    this.sounds={

@@ -1,3 +1,7 @@
+//ScoreBoard.js A place of studious learning and examination of facts and figours.
+//********************************************************************************
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife){
 	this.border=border;
 	this.borderColour=borderColour;
