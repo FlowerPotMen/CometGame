@@ -1,4 +1,4 @@
-function SpaceObject(img, health, speed, height,width, direction, name, y, x){
+function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,dy){
 	this.image=img;
 	this.health=health;
 	this.speed=speed;
@@ -21,12 +21,49 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
         this.radius = this.width/2;
         this.collision=[];
         this.collCount =0;
+        this.dx = dx;
+        this.dy = dy;
         
         //METHODS
         //*******
         
+    this.move = function(){
+      
+        
+        if (this.x<0){
+            this.x = this.right;
+        }
+        else if(this.x > this.right){
+            this.x = 0
+        }
+        if (this.y<0){
+            this.y = this.bottom;
+        }
+        else if(this.y > this.bottom){
+            this.y = 0
+        }
+        
+      	/*if( this.x<0 || this.x>this.maxx){
+        	this.dx=-this.dx;
+        }
+	if( this.y<0 || this.y>this.maxy){
+		this.dy=-this.dy;
+        }*/
+        
+        
+        this.x+=this.dx;
+	this.y+=this.dy;
+        
+        this.pic.style.left=this.x;
+        this.pic.style.top=this.y;
+        
+        this.rotate(this.spin);
+        
+        
+    }
+        
 	//moves objects 
-	this.move=function(){
+	this.move_old=function(){
 		
 		for(i=0;i<this.directionUp;i++){
 			this.moveUp();
@@ -59,20 +96,20 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 		
 		//alert(this.x + ":" + this.y);
 		
-                //this.rotate(this.spin);
+                this.rotate(this.spin);
                 
 	}
 	
 	
 	//changes the direction
 	this.changeDirection=function(left,up){
-		this.directionUp+=(up/2);
-		this.directionLeft+=(left/2);
+		this.dy+=(up/2);
+		this.dx+=(left/2);
 	}
 	//changes the direction of the object sends object in opposite direction 
 	this.oppositeDirection=function(){
-		this.directionLeft=this.directionLeft-(this.directionLeft*2);
-		this.directionUp=this.directionUp-(this.directionUp*2);
+		this.dx=this.dx-(this.dx*2);
+		this.dy=this.dy-(this.dy*2);
 	}
 
 
@@ -294,15 +331,15 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x){
 
 
 //stuff that explain whta the lander has 
-function Lander(img, health, speed, height,width, direction, name, y, x){
+function Lander(img, health, speed, height,width, direction, name, y, x,dx,dy){
 
-	SpaceObject.call(this,img, health, speed, height,width, direction, name, y, x);
+	SpaceObject.call(this,img, health, speed, height,width, direction, name, y, x,dx,dy);
 
 }
 
 //stuff that explain whta the comets have
-function comet(img, health, speed, height,width, direction, name, y, x, moveAngle){	
-	SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x);
+function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){	
+	SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x,dx,dy);
 	
 	
 

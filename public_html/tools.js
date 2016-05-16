@@ -12,7 +12,7 @@ function createCommets(count){
 			var c=[];
 			
 			for (i = 0; i <count;i++){
-				c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300));
+				c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300,randomNumber(25)-15,randomNumber(25)-15));
 				
 			
 			}
@@ -22,7 +22,7 @@ function createCommets(count){
 
 function reset(){
 				// creates rosetta 
-				rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300);
+				rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300,0,0);
 				// creats comets 
 				commets=createCommets(cometsNumber);
 
@@ -130,10 +130,10 @@ function scoreBoard(){
 
  function bounce(obj1,obj2){
         
-            newVelX1 = (obj1.directionLeft * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionLeft)) / (obj1.radius + obj2.radius);
-            newVelY1 = (obj1.directionUp * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.directionUp)) / (obj1.radius + obj2.radius);
-            newVelX2 = (obj2.directionLeft * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionLeft)) / (obj1.radius + obj2.radius);
-            newVelY2 = (obj2.directionUp * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.directionUp)) / (obj1.radius + obj2.radius);
+            newVelX1 = (obj1.dx * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.dx)) / (obj1.radius + obj2.radius);
+            newVelY1 = (obj1.dy * (obj1.radius - obj2.radius) + (2 * obj2.radius * obj2.dy)) / (obj1.radius + obj2.radius);
+            newVelX2 = (obj2.dx * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.dx)) / (obj1.radius + obj2.radius);
+            newVelY2 = (obj2.dy * (obj2.radius - obj1.radius) + (2 * obj1.radius * obj1.dy)) / (obj1.radius + obj2.radius);
             //obj1.clearLast();
             //obj2.clearLast();         
             obj1.x = obj1.x + newVelX1;
@@ -143,11 +143,11 @@ function scoreBoard(){
             
 
             
-            obj1.directionLeft = newVelX1;
-            obj1.directionUp = newVelY1;
+            obj1.dx = newVelX1;
+            obj1.dy = newVelY1;
             //obj1.init();
-            obj2.directionLeft = newVelX2;
-            obj2.directionUp = newVelY2;
+            obj2.dx = newVelX2;
+            obj2.dy = newVelY2;
             
             
 
