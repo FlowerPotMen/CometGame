@@ -95,7 +95,12 @@ function run(){
     else {
         reset();
     }
-                                    
+      timerId = setInterval(function(){					 
+
+					
+		scoreBoard.addScore(1)					
+					
+				},500);                              
                                 
 								
 }
@@ -244,6 +249,7 @@ function checkCollide(){
     
             }
         }
+         
 }
 
 
