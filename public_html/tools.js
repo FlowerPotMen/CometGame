@@ -2,6 +2,12 @@
 //*****************************************************************************
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
+/*To Do list.
+@@@@@@@@@@@@
+Make comet collide smother, stop rosetta from bouncing and make her die, Put in favIcon,
+MaybeList, Blackhole,  
+*/
 var timerId;
 var counter=0;
 // creates a random Number
