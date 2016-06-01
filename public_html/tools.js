@@ -5,7 +5,7 @@
 
 /*To Do list.
 @@@@@@@@@@@@
-Make comet collide smother, stop rosetta from bouncing and make her die, Put in favIcon,
+Make comet collide smother, stop rosetta from bouncing and make her die,
 MaybeList, Blackhole,  
 */
 var timerId;
@@ -18,30 +18,7 @@ function randomNumber(max) {
 
 
 
-//cheacks for over lap
-function checkOverlap(obj1,obj2){
-    var distanceX=Math.abs(obj1.x-obj2.x);
-    var distanceY=Math.abs(obj1.y-obj2.y);
-    
-    var distance=Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    var radius=(obj1.width/2)+(obj2.height/2);
-    
-    if (distance<=radius && (obj1.collision==0 || obj2.collision==0) ){
-        obj1.collision=1;
-        obj2.collision=1;
-                        
 
-        return 1;
-       
-        
-        
-    }
-    
-   else if(distance>radius) {
-       obj1.collision=0;
-       obj2.collision=0;    
-   }
-}
 
 //creates comets  
 function createCommets(count){
@@ -215,20 +192,31 @@ function checkCollide(){
                             (firstComet.collision[secondComet.name]!=1 || secondComet.collision[firstComet.name]!=1)     ){
                         
                         
-                     /*   if (i==0){
-                            console.log ("Rosetta crash");
+                        if (i==0){
+                            rosetta.die();
+                            killAll();
+                            scoreBoard.loseLife();
+
+                            if (scoreBoard.lives==0){
+                                gameOver();
+                                return;
+                            }
+                            reset();
                             return;
-                        }*/
-                    
-                        firstComet.setBorder(2,"#00FF00")
-                        secondComet.setBorder(2,"#00FF00")
-                    
-                        firstComet.collision[secondComet.name]=1;
-                        secondComet.collision[firstComet.name]=1;
-                        firstComet.collCount++;
-                        secondComet.collCount++;
-                        
-                        bounce(firstComet,secondComet);
+                        }
+                        else {
+                            
+                         
+                            firstComet.setBorder(2,"#00FF00")
+                            secondComet.setBorder(2,"#00FF00")
+
+                            firstComet.collision[secondComet.name]=1;
+                            secondComet.collision[firstComet.name]=1;
+                            firstComet.collCount++;
+                            secondComet.collCount++;
+
+                            bounce(firstComet,secondComet);
+                      }
                     }
                     
                     else if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) > (secondComet.width/2 + firstComet.width/2) ||
@@ -256,11 +244,25 @@ function checkCollide(){
             }
         }
          
+
+     
+     }
+     
+function killAll(){  
+    for (var i=0;i<cometsNumber;i++){
+            commets[i].die();
+
+    }
+         
 }
 
+function gameOver(){
 
-
-
-
-
+    //end screen 
+    var endScreen=new ScoreBoard(10,"orange",300,300,scoreBoard.score,0,"", "GAME OVER", 100,1);
+    //play sound
+    // new game button 
     
+    
+}
+

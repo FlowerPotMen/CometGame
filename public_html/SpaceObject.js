@@ -335,7 +335,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
                 clearInterval(this.timerId);
 		//removes space object icon
 
-				rosetta.die();
+				
 
                     
 		for (i=0;i<document.body.childNodes.length;i++){
