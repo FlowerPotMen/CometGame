@@ -251,6 +251,7 @@ function checkCollide(){
 function killAll(){  
     for (var i=0;i<cometsNumber;i++){
             commets[i].die();
+            
 
     }
          
@@ -260,6 +261,19 @@ function gameOver(){
 
     //end screen 
     var endScreen=new ScoreBoard(10,"orange",300,300,scoreBoard.score,0,"", "GAME OVER", 100,1);
+    endScreen.setup();
+    endScreen.addScore(0);
+    var img="explodingRocket.gif";
+    var x = document.createElement("IMG");
+    x.setAttribute("position", "absolute");
+    x.setAttribute("top",rosetta.y);
+    x.setAttribute("left",rosetta.x);
+    x.setAttribute("src",img);
+    x.setAttribute("width", "450");
+    x.setAttribute("height", "373");
+    x.setAttribute("alt", "ExplodingRocket");
+    
+    document.body.appendChild(x);
     //play sound
     // new game button 
     
