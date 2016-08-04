@@ -263,11 +263,11 @@ function gameOver(){
     var endScreen=new ScoreBoard(10,"orange",300,300,scoreBoard.score,0,"", "GAME OVER", 100,1);
     endScreen.setup();
     endScreen.addScore(0);
-    var img="explodingRocket.gif";
+    var img="explodingRocket2.gif";
     var x = document.createElement("IMG");
-    x.setAttribute("position", "absolute");
-    x.setAttribute("top",rosetta.y);
-    x.setAttribute("left",rosetta.x);
+    x.style.position="absolute";
+    x.style.top=rosetta.y;
+    x.style.left=rosetta.x;
     x.setAttribute("src",img);
     x.setAttribute("width", "450");
     x.setAttribute("height", "373");
