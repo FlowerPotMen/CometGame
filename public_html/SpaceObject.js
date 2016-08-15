@@ -29,6 +29,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
         this.collCount =0;
         this.dx = dx;
         this.dy = dy;
+        this.dead = 0;
         
         //METHODS
         //*******
@@ -69,40 +70,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
         
     }
         
-    this.move = function(){
-      
-        
-        if (this.x<0){
-            this.x = this.right;
-        }
-        else if(this.x > this.right){
-            this.x = 0
-        }
-        if (this.y<0){
-            this.y = this.bottom;
-        }
-        else if(this.y > this.bottom){
-            this.y = 0
-        }
-        
-      	/*if( this.x<0 || this.x>this.maxx){
-        	this.dx=-this.dx;
-        }
-	if( this.y<0 || this.y>this.maxy){
-		this.dy=-this.dy;
-        }*/
-        
-        
-        this.x+=this.dx;
-	this.y+=this.dy;
-        
-        this.pic.style.left=this.x;
-        this.pic.style.top=this.y;
-        
-        this.rotate(this.spin);
-        
-        
-    }
+
         
 	
 	//changes the direction
@@ -137,12 +105,15 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 		
 		
 		
-		timerId = setInterval(function(){
-			me.move();
-                       var collided = checkCollide();
-                       if (collided==1){
-                           clearInterval(timerId);
+		this.timerId = setInterval(function(){
+                    
+                    me.move();
+                    if (me.dead ==0){
+                       var collide = checkCollide();
+                       if (collide==1){
+                           collided();
                        }
+                    }
 		},this.speed);
 
 		
@@ -320,16 +291,18 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
         
         
         //swaps rocket image when thrusting 
-	this.swapImg=function(newImg){
+	this.swapImg=function(newImg,timeout){
           this.pic.src=newImg;
           this.pic.height=120;
           this.pic.width=50;
           me=this;
-          setTimeout(function(){
-              me.pic.src=me.image;
-              me.pic.height=100;
-              me.pic.width=50;
-          },(500));
+          if (timeout > 0){
+             setTimeout(function(){
+                  me.pic.src=me.image;
+                  me.pic.height=100;
+                  me.pic.width=50;
+             },(timeout));
+          }
             
             
             
@@ -405,6 +378,7 @@ function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){
 		
 		this.timerId = setInterval(function(){
 			me.move(); 
+                        var collided = checkCollide();
                     
 		},this.speed);
 		

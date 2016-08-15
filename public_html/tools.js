@@ -89,41 +89,43 @@ function run(){
 }
 // binds keys to there movement and moves them
 function movement(){
-				var key = window.event;
-				//alert(key.keyCode); 
-				 
-			
-				//A
-				if(key.keyCode==97){
-					rosetta.rotate(-10);
-					return;
-				}
-				//W
-				else if(key.keyCode==119){
-					rosetta.accelerate(1);
-					scoreBoard.addScore(10);
-                                        rosetta.swapImg("RocketThrust.png");
-					soundBank.play("thruster");
-                                        
-				}	
-				//D
-				else if (key.keyCode==100){
-					rosetta.rotate(10);
-				}
-				//S
-				else if(key.keyCode==115){
-					rosetta.accelerate(0);
-					scoreBoard.addScore(1);
-				}
-                                //m= 109
-                                
-                               
-                                else if (key.keyCode==109){
-                                   
-                                    soundBank.mute();
-                                   
-                                }
-                                
+    
+    if (rosetta.dead==0){
+        var key = window.event;
+        //alert(key.keyCode); 
+
+
+        //A
+        if(key.keyCode==97){
+                rosetta.rotate(-10);
+                return;
+        }
+        //W
+        else if(key.keyCode==119){
+                rosetta.accelerate(1);
+                scoreBoard.addScore(10);
+                rosetta.swapImg("RocketThrust.png",500);
+                soundBank.play("thruster");
+
+        }	
+        //D
+        else if (key.keyCode==100){
+                rosetta.rotate(10);
+        }
+        //S
+        else if(key.keyCode==115){
+                rosetta.accelerate(0);
+                scoreBoard.addScore(1);
+        }
+        //m= 109
+
+
+        else if (key.keyCode==109){
+
+            soundBank.mute();
+
+        }
+    }                        
 				 
 }
 
@@ -174,6 +176,28 @@ function scoreBoard(){
     }
     
     
+function collided(){
+    
+    scoreBoard.loseLife();
+    killAll();
+
+    
+    
+    
+
+    if (scoreBoard.lives==0){
+        gameOver();
+        return 1;
+                                 
+    }
+    rosetta.die();
+    delete rosetta;
+    reset();
+    return 1;
+    
+}
+    
+    
 function checkCollide(){
     var objects = commets.slice(0);
     objects.unshift(rosetta);
@@ -192,18 +216,9 @@ function checkCollide(){
                             (firstComet.collision[secondComet.name]!=1 || secondComet.collision[firstComet.name]!=1)     ){
                         
                         
+                        //return 1 if collided
                         if (i==0){
-                            rosetta.die();
-                            killAll();
-                            scoreBoard.loseLife();
-
-                            if (scoreBoard.lives==0){
-                                gameOver();
-                                return 1;
-                                 
-                            }
-                            reset();
-                            return 1;
+                           return 1;
                         }
                         else {
                             
@@ -252,9 +267,9 @@ function checkCollide(){
 function killAll(){  
     for (var i=0;i<cometsNumber;i++){
             commets[i].die();
+            delete commets[i];
 
     }
-    delete commets;    
 
                     
 }
@@ -263,15 +278,24 @@ function gameOver(){
 
     //end screen 
     var endScreen=new ScoreBoard(10,"orange",300,300,scoreBoard.score,0,"", "GAME OVER", 100,1);
+    scoreBoard.die();
+    delete scoreBoard;
     endScreen.setup();
     endScreen.addScore(0);
-    var img="explodingRocket2.gif";
-    var x = document.createElement("IMG");
-    x.style.position="absolute";
-    x.style.top=rosetta.y;
-    x.style.left=rosetta.x;
-    x.src=img;
-    document.body.appendChild(x);
+    clearInterval(timerId);
+    rosetta.dead=1;
+    rosetta.swapImg("explodingRocket2.gif",0);
+    
+    
+    //rosetta.die();
+    //delete rosetta;
+    //var img="explodingRocket2.gif";
+    //var x = document.createElement("IMG");
+    //x.style.position="absolute";
+    //x.style.top=rosetta.y;
+    //x.style.left=rosetta.x;
+    //x.src=img;
+    //document.body.appendChild(x);
     //play sound
     // new game button 
     

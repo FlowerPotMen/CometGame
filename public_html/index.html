@@ -24,7 +24,7 @@
                         //stops rocket from crashing,       
 			var debug=0;
                         //the arguments for scorrboard 
-			var scoreBoard=new ScoreBoard(2,"orange",100,50,0,3,"rocket.gif","score",40,1000);
+			var scoreBoard=new ScoreBoard(2,"orange",100,50,0,3,"rocket.gif","score",40,1000,"scores");
                         
 			var rosetta,commets;
 			var cometsNumber=3;	
@@ -36,7 +36,7 @@
 	</head>
 	<body bgcolor="black" onload="run()" onkeypress="movement()">
             
-            <button onclick="killAll();reset()">New Game</button>
+            <button onclick="reset()">New Game</button>
             		      		
 	</body>
 </html>

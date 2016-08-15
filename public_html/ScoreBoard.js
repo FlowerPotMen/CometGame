@@ -2,7 +2,7 @@
 //********************************************************************************
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife){
+function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife,name){
 	this.border=border;
 	this.borderColour=borderColour;
 	this.x=x;
@@ -16,6 +16,8 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 	this.text=text;
 	this.fontSize=fontSize;
 	this.pointToLife=pointToLife;
+        this.name = name;
+        this.board.id = name;
 	
 
 	
@@ -28,6 +30,7 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			this.board.style.left=this.x;
 			this.board.style.top=this.y;
 			this.board.style.border = "thick solid " + this.borderColour;
+                        
 			
 			
 			
@@ -124,7 +127,23 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			title.appendChild(t);
 			title.style.color="white";
 			this.counter.appendChild(title);
-	}		
+	}
+        
+        //die
+        this.die = function(){
+            
+            for (i=0;i<document.body.childNodes.length;i++){
+			if (document.body.childNodes[i].id == this.name){
+					document.body.removeChild(document.body.childNodes[i]);
+					break;
+                                        
+                                              
+                            
+                            
+			}
+		}
+            
+        }
 }		
 	
 	
