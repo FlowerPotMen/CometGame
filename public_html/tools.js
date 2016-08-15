@@ -55,13 +55,13 @@ function reset(){
 
         commets[i].setup();
     }
-    timerId = setInterval(function(){					 
+    /*timerId = setInterval(function(){					 
 
 					
 					//check crashes
 					checkCollide();					
 					
-				},10);
+				},10);*/
 	
 	
 }
@@ -199,10 +199,11 @@ function checkCollide(){
 
                             if (scoreBoard.lives==0){
                                 gameOver();
-                                return;
+                                return 1;
+                                 
                             }
                             reset();
-                            return;
+                            return 1;
                         }
                         else {
                             
@@ -251,10 +252,11 @@ function checkCollide(){
 function killAll(){  
     for (var i=0;i<cometsNumber;i++){
             commets[i].die();
-            
 
     }
-         
+    delete commets;    
+
+                    
 }
 
 function gameOver(){
@@ -268,15 +270,12 @@ function gameOver(){
     x.style.position="absolute";
     x.style.top=rosetta.y;
     x.style.left=rosetta.x;
-    x.setAttribute("src",img);
-    x.setAttribute("width", "450");
-    x.setAttribute("height", "373");
-    x.setAttribute("alt", "ExplodingRocket");
-    
+    x.src=img;
     document.body.appendChild(x);
     //play sound
     // new game button 
     
     
 }
+
 

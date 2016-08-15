@@ -104,44 +104,6 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
         
     }
         
-	//moves objects 
-	this.move_old=function(){
-		
-		for(i=0;i<this.directionUp;i++){
-			this.moveUp();
-                        //checkCollide(this);
-                           
-		}
-		
-		for(i=0;i<this.directionLeft;i++){
-			this.moveLeft();
-                        //checkCollide(this);
-                        /*if (checkCollide(this)==1){
-                            return;
-                        }*/
-		}
-		
-		for(i=0;i>this.directionUp;i--){
-			this.moveDown();
-                        //checkCollide(this);
-                        /*if (checkCollide(this)==1){
-                            return;
-                        }*/
-		}
-		for(i=0;i>this.directionLeft;i--){
-			this.moveRight();
-                        //checkCollide(this);
-                        /*if (checkCollide(this)==1){
-                            return;
-                        }*/
-		}
-		
-		//alert(this.x + ":" + this.y);
-		
-                this.rotate(this.spin);
-                
-	}
-	
 	
 	//changes the direction
 	this.changeDirection=function(left,up){
@@ -176,7 +138,11 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 		
 		
 		timerId = setInterval(function(){
-			me.move(); 
+			me.move();
+                       var collided = checkCollide();
+                       if (collided==1){
+                           clearInterval(timerId);
+                       }
 		},this.speed);
 
 		
