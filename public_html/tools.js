@@ -10,6 +10,7 @@ MaybeList, Blackhole,
 */
 var timerId;
 var counter=0;
+var endScreen;
 // creates a random Number
 function randomNumber(max) {
 	
@@ -44,6 +45,10 @@ function createCommets(count){
 }			
 
 function reset(){
+    //kills rosetta
+    if (rosetta){
+        rosetta.die();
+    }
     // creates rosetta 
     rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300,0,0);
     // creats comets 
@@ -68,9 +73,15 @@ function reset(){
 
 //sets every thing up at start
 function run(){
-		
+
+    if (endScreen){
+        endScreen.die();     
+    }
+   
+    scoreBoard.die();
+    scoreBoard.reset();
     scoreBoard.setup();
-                                
+        
     soundBank.play("countDown");
     if (soundBank.on==1){
          setTimeout(reset,7000);    
@@ -277,7 +288,7 @@ function killAll(){
 function gameOver(){
 
     //end screen 
-    var endScreen=new ScoreBoard(10,"orange",300,300,scoreBoard.score,0,"", "GAME OVER", 100,1);
+    endScreen=new ScoreBoard(10,"orange",300,100,scoreBoard.score,0,"", "GAME OVER", 100,1,"endScreen",1);
     scoreBoard.die();
     delete scoreBoard;
     endScreen.setup();
@@ -285,7 +296,7 @@ function gameOver(){
     clearInterval(timerId);
     rosetta.dead=1;
     rosetta.swapImg("explodingRocket2.gif",0);
-    
+   
     
     //rosetta.die();
     //delete rosetta;

@@ -2,7 +2,7 @@
 //********************************************************************************
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife,name){
+function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife,name,button){
 	this.border=border;
 	this.borderColour=borderColour;
 	this.x=x;
@@ -18,9 +18,29 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 	this.pointToLife=pointToLife;
         this.name = name;
         this.board.id = name;
+        this.button=button;
+       
 	
 
-	
+       this.reset=function(){
+           	this.border=border;
+                this.borderColour=borderColour;
+                this.x=x;
+                this.y=y;
+                this.score=score;
+                this.lives=lives;
+                this.icon=icon;
+                this.board=document.createElement("div");
+                this.counter=document.createElement("div");
+                this.lifeDisplay=document.createElement("div");
+                this.text=text;
+                this.fontSize=fontSize;
+                this.pointToLife=pointToLife;
+                this.name = name;
+                this.board.id = name;
+           
+       }
+       
 	//setup-creares score board
 	this.setup=function(){
 		
@@ -30,8 +50,14 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			this.board.style.left=this.x;
 			this.board.style.top=this.y;
 			this.board.style.border = "thick solid " + this.borderColour;
-                        
-			
+                     
+                     if (this.button==1){
+                         var btn = document.createElement("BUTTON");
+			this.board.appendChild(btn);
+                        var t = document.createTextNode("New Game");
+                        btn.onclick = function(){run()};
+                        btn.appendChild(t);
+                     }
 			
 			
 			//creats the text font type and size 
@@ -92,16 +118,16 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 	
 	//add score-adds score
 	this.addScore=function(score){
-		//x= first score
-		x=this.score;
-		//y= added score
-		y=score;
+		//xx= first score
+		xx=this.score;
+		//yy= added score
+		yy=score;
 		// z= bothtogether 
-		z=x+y;
+		z=xx+yy;
 		//p= modulus remainder 
 		p=z % this.pointToLife;
 		
-		if(p<y){
+		if(p<yy){
 			
 			this.gainLife();
 		}
@@ -144,8 +170,12 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 		}
             
         }
-}		
-	
+        //sets the score
+        this.scoreSet = function(s){
+            this.score=s;   
+        }		
+}
+        
 	
 
 	
