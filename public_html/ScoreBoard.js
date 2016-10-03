@@ -2,7 +2,7 @@
 //********************************************************************************
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife,name,button){
+function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSize,pointToLife,name,button,height,width){
 	this.border=border;
 	this.borderColour=borderColour;
 	this.x=x;
@@ -19,7 +19,8 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
         this.name = name;
         this.board.id = name;
         this.button=button;
-       
+        this.height=height;
+        this.width=width;
 	
 
        this.reset=function(){
@@ -46,17 +47,28 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 		
 		
 			//creates the border, colour, and pos
+                        this.board.style.height=this.height;
+                        this.board.style.width=this.width;
 			this.board.style.position="absolute";
 			this.board.style.left=this.x;
 			this.board.style.top=this.y;
 			this.board.style.border = "thick solid " + this.borderColour;
+                        
+                       
                      
+                     
+                     //maekes game over button
                      if (this.button==1){
                          var btn = document.createElement("BUTTON");
 			this.board.appendChild(btn);
                         var t = document.createTextNode("New Game");
                         btn.onclick = function(){run()};
                         btn.appendChild(t);
+                        btn.style.position="absolute";
+                        btn.style.left="45%";
+                        btn.style.top="20%";
+                        btn.style.border = "thick solid " + this.borderColour;
+                        //btn.style.text-align = "center";
                      }
 			
 			

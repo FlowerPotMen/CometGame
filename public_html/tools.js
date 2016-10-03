@@ -5,12 +5,15 @@
 
 /*To Do list.
 @@@@@@@@@@@@
-Make comet collide smother, stop rosetta from bouncing and make her die,
+Make comet collide smoother,
 MaybeList, Blackhole,  
 */
 var timerId;
 var counter=0;
 var endScreen;
+var creatcommets;
+
+
 // creates a random Number
 function randomNumber(max) {
 	
@@ -73,7 +76,9 @@ function reset(){
 
 //sets every thing up at start
 function run(){
-
+    
+    setTimeout(createCommets, 3000)
+    
     if (endScreen){
         endScreen.die();     
     }
@@ -81,6 +86,7 @@ function run(){
     scoreBoard.die();
     scoreBoard.reset();
     scoreBoard.setup();
+    
         
     soundBank.play("countDown");
     if (soundBank.on==1){
@@ -288,7 +294,7 @@ function killAll(){
 function gameOver(){
 
     //end screen 
-    endScreen=new ScoreBoard(10,"orange",300,100,scoreBoard.score,0,"", "GAME OVER", 100,1,"endScreen",1);
+    endScreen=new ScoreBoard(10,"orange",300,100,scoreBoard.score,0,"", "GAME OVER", 100,1,"endScreen",1) //,250,750);
     scoreBoard.die();
     delete scoreBoard;
     endScreen.setup();
@@ -296,17 +302,6 @@ function gameOver(){
     clearInterval(timerId);
     rosetta.dead=1;
     rosetta.swapImg("explodingRocket2.gif",0);
-   
-    
-    //rosetta.die();
-    //delete rosetta;
-    //var img="explodingRocket2.gif";
-    //var x = document.createElement("IMG");
-    //x.style.position="absolute";
-    //x.style.top=rosetta.y;
-    //x.style.left=rosetta.x;
-    //x.src=img;
-    //document.body.appendChild(x);
     //play sound
     // new game button 
     
