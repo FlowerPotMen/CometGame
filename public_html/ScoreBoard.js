@@ -76,7 +76,7 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			var title=document.createElement("h1");
 			var t = document.createTextNode(this.text);
 			title.appendChild(t);
-			title.style.color="white";
+			title.style.color="Yellow";
 			title.style.fontFamily = "AR DELANEY";
 			title.style.fontSize = this.fontSize;
 			this.board.appendChild(title);
@@ -163,7 +163,7 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			var title=document.createElement("h2");
 			var t = document.createTextNode(this.score);
 			title.appendChild(t);
-			title.style.color="white";
+			title.style.color="Magenta";
 			this.counter.appendChild(title);
 	}
         

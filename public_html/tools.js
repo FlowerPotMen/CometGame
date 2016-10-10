@@ -48,6 +48,8 @@ function createCommets(count){
 }			
 
 function reset(){
+         
+    
     //kills rosetta
     if (rosetta){
         rosetta.die();
@@ -77,7 +79,15 @@ function reset(){
 //sets every thing up at start
 function run(){
     
-    setTimeout(createCommets, 3000)
+    setTimeout(function(){
+        createCommets;
+        timerId = setInterval(function(){					 
+
+            scoreBoard.addScore(1)					
+					
+	},500);                              
+      
+    }, 7000)
     
     if (endScreen){
         endScreen.die();     
@@ -92,15 +102,7 @@ function run(){
     if (soundBank.on==1){
          setTimeout(reset,7000);    
     }
-    else {
-        reset();
-    }
-      timerId = setInterval(function(){					 
-
-					
-		scoreBoard.addScore(1)					
-					
-				},500);                              
+    
                                 
 								
 }
@@ -303,7 +305,10 @@ function gameOver(){
     rosetta.dead=1;
     rosetta.swapImg("explodingRocket2.gif",0);
     //play sound
-    // new game button 
+    soundBank.play("sadNoise");
+    if (soundBank.on==1){
+         setTimeout(reset,10)
+     }
     
     
 }

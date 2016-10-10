@@ -24,7 +24,7 @@ function SoundBank (){
     };
    this.mute=function(){
        if (this.on===1 ){
-           this.on=0;
+           this.off=0;
            
            
        }
