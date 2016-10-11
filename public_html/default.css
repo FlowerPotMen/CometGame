@@ -1,0 +1,14 @@
+body {
+    background-color: black;
+}
+
+
+.score {
+    color:violet;
+    text-align: center;
+    font-size: 100%;
+}
+#endScreen{
+    font-size: 500%;
+}
+

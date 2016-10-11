@@ -163,7 +163,8 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 			var title=document.createElement("h2");
 			var t = document.createTextNode(this.score);
 			title.appendChild(t);
-			title.style.color="Magenta";
+			//title.style.color="Magenta";
+                        title.className="score";
 			this.counter.appendChild(title);
 	}
         

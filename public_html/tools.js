@@ -304,11 +304,10 @@ function gameOver(){
     clearInterval(timerId);
     rosetta.dead=1;
     rosetta.swapImg("explodingRocket2.gif",0);
-    //play sound
     soundBank.play("sadNoise");
-    if (soundBank.on==1){
+    /*if (soundBank.on==1){
          setTimeout(reset,10)
-     }
+     }*/
     
     
 }
