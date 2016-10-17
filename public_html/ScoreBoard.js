@@ -116,6 +116,7 @@ function ScoreBoard (border, borderColour, x, y, score, lives, icon,text,fontSiz
 	this.loseLife=function(){
 		this.lives--;
 		this.lifeCount();
+                
 		
 	}
 	

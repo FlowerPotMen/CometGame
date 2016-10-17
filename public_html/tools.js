@@ -65,6 +65,12 @@ function reset(){
 
         commets[i].setup();
     }
+     scoreId = setInterval(function(){					 
+
+            scoreBoard.addScore(1)					
+					
+	},500);                              
+      
     /*timerId = setInterval(function(){					 
 
 					
@@ -81,12 +87,7 @@ function run(){
     
     setTimeout(function(){
         createCommets;
-        timerId = setInterval(function(){					 
-
-            scoreBoard.addScore(1)					
-					
-	},500);                              
-      
+       
     }, 7000)
     
     if (endScreen){
@@ -196,6 +197,7 @@ function scoreBoard(){
     
     
 function collided(){
+    clearInterval(scoreId);
     
     scoreBoard.loseLife();
     killAll();
@@ -211,7 +213,9 @@ function collided(){
     }
     rosetta.die();
     delete rosetta;
-    reset();
+    setTimeout(function(){
+        reset();}
+    ,2000);
     return 1;
     
 }
@@ -221,9 +225,9 @@ function checkCollide(){
     var objects = commets.slice(0);
     objects.unshift(rosetta);
     
-        for (var i=0;i<cometsNumber;i++){
+        for (var i=0;i<objects.length;i++){
         
-            for (var j=1;j<cometsNumber;j++){
+            for (var j=1;j<objects.length;j++){
     
                 if (j != i){
                     
