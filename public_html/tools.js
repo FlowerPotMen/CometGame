@@ -3,11 +3,6 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-/*To Do list.
-@@@@@@@@@@@@
-Make comet collide smoother,
-MaybeList, Blackhole,  
-*/
 var timerId;
 var counter=0;
 var endScreen;
@@ -137,13 +132,21 @@ function movement(){
                 rosetta.accelerate(0);
                 scoreBoard.addScore(1);
         }
+        //Space=32
+        else if (key.keyCode==32){
+         p1=new PlasmaBall("plasmaBall.png",5,7,100,50,"left","Rosetta", 300, 300,0,0);    
+         p1.setup();             
+        }
         //m= 109
-
-
         else if (key.keyCode==109){
 
             soundBank.mute();
+            
+            
 
+        }
+        else {
+            console.log("unassigned key pressed:s" + key.keyCode);
         }
     }                        
 				 

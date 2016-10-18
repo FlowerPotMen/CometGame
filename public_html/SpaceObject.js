@@ -317,6 +317,9 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 }
 
 
+function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,dy){
+        SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x,dx,dy);
+}
 
 //stuff that explain whta the comets have
 function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){	
