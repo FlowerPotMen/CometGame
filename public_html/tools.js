@@ -31,15 +31,7 @@ function createCommets(count){
 			}
 				
 			return c;
-    var c=[];
 
-    for (i = 0; i <count;i++){
-            c.push(new comet("rosetta-comet2.gif",5,randomNumber(50)+5,100,100,"left","Comet"+i,100, 300),randomNumber(25)-15,randomNumber(25)-15);
-
-
-    }
-	
-    return c;
 }			
 
 function reset(){
@@ -134,9 +126,13 @@ function movement(){
         }
         //Space=32
         else if (key.keyCode==32){
-         p1=new PlasmaBall("plasmaBall.png",5,7,100,50,"left","Rosetta", 300, 300,0,0);    
-         p1.setup();             
+         p1=new PlasmaBall("plasmaBall.png",5,7,10,10,"left","Rosetta", rosetta.y,rosetta.x,0,0);    
+         p1.setup(rosetta.angle);    
+         plasmaBalls.push(p1);
+         
         }
+        
+        
         //m= 109
         else if (key.keyCode==109){
 
@@ -145,8 +141,18 @@ function movement(){
             
 
         }
+        
+        else if (key.keyCode==98){
+            
+        }
+            
+            
+            
+            
+            
+            
         else {
-            console.log("unassigned key pressed:s" + key.keyCode);
+            console.log("unassigned key pressed:" + key.keyCode);
         }
     }                        
 				 
@@ -227,6 +233,7 @@ function collided(){
 function checkCollide(){
     var objects = commets.slice(0);
     objects.unshift(rosetta);
+    objects.push=plasmaBalls.slice(0);
     
         for (var i=0;i<objects.length;i++){
         

@@ -319,6 +319,44 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 
 function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,dy){
         SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x,dx,dy);
+        
+        this.setup=function(rosettaAngle){
+            
+                this.pic.src=this.image;
+		this.pic.height=this.height;
+		this.pic.width=this.width;
+		this.pic.style.position="absolute";
+		this.pic.style.top=this.y;
+		this.pic.style.left=this.x;
+		this.pic.id=this.name;
+
+		//puts the picture on to the object
+		document.body.appendChild(this.pic);
+		this.bodyPos=document.body.childNodes.length-1;
+		this.angle=rosettaAngle;
+                this.accelerate(1);
+                 this.spin=5;
+                
+		var me = this;
+		
+		
+		
+		this.timerId = setInterval(function(){
+                    
+                    me.move();
+                    if (me.dead ==0){
+                       var collide = checkCollide();
+                       if (collide==1){
+                           collided();
+                       }
+                    }
+		},this.speed);
+
+		
+	}
+	    
+            
+        
 }
 
 //stuff that explain whta the comets have
