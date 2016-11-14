@@ -1,6 +1,16 @@
 body {
     background-color: black;
 }
+.threeLives{
+    background-color: black;
+}
+
+.twoLives{
+    background-color: yellow;
+}
+.oneLife{
+    background-color: red; 
+}
 
 
 .score {

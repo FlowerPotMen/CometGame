@@ -35,6 +35,20 @@ function createCommets(count){
 }			
 
 function reset(){
+    
+    if(scoreBoard.lives==3){
+        document.getElementById("bdyTag").className = "threeLives";
+    }
+    else if (scoreBoard.lives==2){
+        document.getElementById("bdyTag").className = "twoLives";
+    }
+    else if(scoreBoard.lives==1){
+        document.getElementById("bdyTag").className = "oneLife";
+    }
+    else{
+        
+    }
+    
          
     
     //kills rosetta
@@ -71,9 +85,9 @@ function reset(){
 
 //sets every thing up at start
 function run(){
-    
     setTimeout(function(){
         createCommets;
+        
        
     }, 7000)
     
@@ -126,7 +140,7 @@ function movement(){
         }
         //Space=32
         else if (key.keyCode==32){
-         p1=new PlasmaBall("plasmaBall.png",5,7,10,10,"left","Rosetta", rosetta.y,rosetta.x,0,0);    
+         p1=new PlasmaBall("plasmaBall.png",5,7,20,20,"left","Rosetta", rosetta.y,rosetta.x,0,0);    
          p1.setup(rosetta.angle);    
          plasmaBalls.push(p1);
          
@@ -210,7 +224,8 @@ function collided(){
     
     scoreBoard.loseLife();
     killAll();
-
+    
+ 
     
     
     
@@ -220,6 +235,7 @@ function collided(){
         return 1;
                                  
     }
+   
     rosetta.die();
     delete rosetta;
     setTimeout(function(){
@@ -233,7 +249,7 @@ function collided(){
 function checkCollide(){
     var objects = commets.slice(0);
     objects.unshift(rosetta);
-    objects.push=plasmaBalls.slice(0);
+   // objects.push=plasmaBalls.slice(0);
     
         for (var i=0;i<objects.length;i++){
         

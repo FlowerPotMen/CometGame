@@ -24,23 +24,27 @@
                 </script>
                 
 		<script>
+      
+    
+                        
                         //stops rocket from crashing,       
-			var debug=1;
+			var debug=0;
                         //the arguments for scorrboard 
                         
 			var scoreBoard=new ScoreBoard(2,"orange",100,50,0,3,"rocket.gif","score",40,1000,"scores",0);
                         
 			var rosetta,commets,plasmaBalls;
-			var cometsNumber=0;	
+			var cometsNumber=3;	
                         var soundBank=new SoundBank();
                         
                       soundBank.mute();
+                      
                         
 		</script>
 	</head>
-	<body onload="run()" onkeypress="movement()">
+	<body onload="run()" onkeypress="movement()" id="bdyTag">
             
-           
+          
             		      		
 	</body>
 </html>
