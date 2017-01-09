@@ -319,7 +319,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 
 function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,dy){
         SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x,dx,dy);
-        
+        this.type="PlasmaBall";
         this.setup=function(rosettaAngle){
             
                 this.pic.src=this.image;
@@ -329,6 +329,7 @@ function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,
 		this.pic.style.top=this.y;
 		this.pic.style.left=this.x;
 		this.pic.id=this.name;
+                this.setBorder(2,"#FF0000")
 
 		//puts the picture on to the object
 		document.body.appendChild(this.pic);
@@ -340,7 +341,6 @@ function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,
 		var me = this;
 		
 		
-		
 		this.timerId = setInterval(function(){
                     
                     me.move();
@@ -348,6 +348,7 @@ function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,
                        var collide = checkCollide();
                        if (collide==1){
                            collided();
+                            
                        }
                     }
 		},this.speed);
@@ -362,7 +363,7 @@ function PlasmaBall(img, health, speed,  height,width, direction, name, y, x,dx,
 //stuff that explain whta the comets have
 function comet(img, health, speed, height,width, direction, name, y, x,dx,dy){	
 	SpaceObject.call(this,img, health, speed, height, width, direction, name, y, x,dx,dy);
-	
+	this.type="comet";
 	
 
 	this.setup=function(){

@@ -87,7 +87,7 @@ function reset(){
 function run(){
     setTimeout(function(){
         createCommets;
-        
+                          
        
     }, 7000)
     
@@ -111,7 +111,7 @@ function run(){
 // binds keys to there movement and moves them
 function movement(){
     
-    if (rosetta.dead==0){
+       if (rosetta.dead==0){
         var key = window.event;
         //alert(key.keyCode); 
 
@@ -139,10 +139,13 @@ function movement(){
                 scoreBoard.addScore(1);
         }
         //Space=32
+        
         else if (key.keyCode==32){
-         p1=new PlasmaBall("plasmaBall.png",5,7,20,20,"left","Rosetta", rosetta.y,rosetta.x,0,0);    
-         p1.setup(rosetta.angle);    
-         plasmaBalls.push(p1);
+            if (plasmaBalls.length < 1){
+             p1=new PlasmaBall("plasmaBall.png",5,7,20,34,"left","plasmaBall", rosetta.y,rosetta.x,0,0);    
+             p1.setup(rosetta.angle);    
+             plasmaBalls.push(p1);
+            }
          
         }
         
@@ -151,14 +154,15 @@ function movement(){
         else if (key.keyCode==109){
 
             soundBank.mute();
-            
-            
+                        
 
         }
+         else if (key.keyCode==173){
+           debug=1;
+       }    
         
-        else if (key.keyCode==98){
-            
-        }
+      
+       
             
             
             
@@ -220,6 +224,9 @@ function scoreBoard(){
     
     
 function collided(){
+    if(debug==1){
+        return;
+    }
     clearInterval(scoreId);
     
     scoreBoard.loseLife();
@@ -249,7 +256,7 @@ function collided(){
 function checkCollide(){
     var objects = commets.slice(0);
     objects.unshift(rosetta);
-   // objects.push=plasmaBalls.slice(0);
+    objects=objects.concat(plasmaBalls);
     
         for (var i=0;i<objects.length;i++){
         
@@ -263,17 +270,20 @@ function checkCollide(){
                     if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) < (secondComet.width/2 + firstComet.width/2) &&
                         Math.abs ((secondComet.y + (secondComet.height/2)) - (firstComet.y + (firstComet.height/2)) ) < (secondComet.height/2 + firstComet.height/2) &&
                             (firstComet.collision[secondComet.name]!=1 || secondComet.collision[firstComet.name]!=1)     ){
-                        
-                        
-                        //return 1 if collided
-                        if (i==0){
-                           return 1;
-                        }
-                        else {
+                                
+                        if ((firstComet.type=="Lander" || secondComet.type=="Lander") && 
+                                (firstComet.type=="comet" || secondComet.type=="comet")){
                             
-                         
-                            firstComet.setBorder(2,"#00FF00")
-                            secondComet.setBorder(2,"#00FF00")
+                            return 1;
+                           
+                        }
+                        else if ((firstComet.type=="PlasmaBall" || secondComet.type=="PlasmaBall") && 
+                                (firstComet.type=="comet" || secondComet.type=="comet")){
+                                redirectComet(firstComet,secondComet);
+                        }
+                         else if (firstComet.type=="comet" && secondComet.type=="comet"){
+                             firstComet.setBorder(2,"#00FF00")
+                              secondComet.setBorder(2,"#00FF00")
 
                             firstComet.collision[secondComet.name]=1;
                             secondComet.collision[firstComet.name]=1;
@@ -281,7 +291,15 @@ function checkCollide(){
                             secondComet.collCount++;
 
                             bounce(firstComet,secondComet);
-                      }
+                        } 
+                            
+                        //if rosetta collids then return 1
+        
+                        
+                            
+
+                       
+
                     }
                     
                     else if (Math.abs ((secondComet.x + (secondComet.width/2)) - (firstComet.x + (firstComet.width/2)) ) > (secondComet.width/2 + firstComet.width/2) ||
@@ -333,13 +351,80 @@ function gameOver(){
     endScreen.addScore(0);
     clearInterval(timerId);
     rosetta.dead=1;
-    rosetta.swapImg("explodingRocket2.gif",0);
+    rosetta.swapImg("explodingRocket.gif",0);
     soundBank.play("sadNoise");
     /*if (soundBank.on==1){
          setTimeout(reset,10)
-     }*/
+                            }*/
     
     
 }
+function redirectComet(obj0,obj1){
+    var pb;
+    var c;
+    if (obj0.type=="comet"){
+        pb=obj1;
+        c=obj0;
+    }
+    else{
+       pb=obj0;
+       c=obj1;
+    }
+    c.dx=pb.dx;
+    c.dy=pb.dy;
+    pb.die();
+    plasmaBalls=[];
+    
+}
+
+//Makes rocket follow mouse
+function followMouse(){
+    
+    var x = event.clientX;     // Get the horizontal coordinate
+    var y = event.clientY;     // Get the vertical coordinate
+    console.log(rosetta.x + " " + rosetta.y);
+    var diffx = x-rosetta.x;
+    var diffy = y-rosetta.y;
+    var quad = 0;
+    if ((diffx<0) && (diffy<0)){
+        quad=1;
+    }
+    else if((diffx<0) && (diffy>0)){
+        quad=2;
+    }
+    else if((diffx>0) && (diffy<0)){
+        quad=3;
+    }
+    else if((diffx>0) && (diffy>0)){
+        quad=4;
+    }
+    //makes values positive 
+    diffx=Math.abs(diffx);
+    diffy=Math.abs(diffy);
+    var ratio=diffx/diffy;
+    var deg=0;
+    
+    if(diffx==0){
+        deg=0;
+    }
+    else if(diffy==0){
+        deg=90;
+    }
+    else if (ratio>1){
+        deg=45*ratio;
+        
+    }
+    else if(ratio<1){
+        deg=45/ratio;
+        
+    }
+    rosetta.rotate( rosetta.angle - (((quad-1)*90) + deg));
+    
+    
+}
+
+
+
+
 
 
