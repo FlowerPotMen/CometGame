@@ -380,45 +380,29 @@ function redirectComet(obj0,obj1){
 //Makes rocket follow mouse
 function followMouse(){
     
+    
     var x = event.clientX;     // Get the horizontal coordinate
     var y = event.clientY;     // Get the vertical coordinate
-    console.log(rosetta.x + " " + rosetta.y);
-    var diffx = x-rosetta.x;
-    var diffy = y-rosetta.y;
-    var quad = 0;
-    if ((diffx<0) && (diffy<0)){
-        quad=1;
-    }
-    else if((diffx<0) && (diffy>0)){
-        quad=2;
-    }
-    else if((diffx>0) && (diffy<0)){
-        quad=3;
-    }
-    else if((diffx>0) && (diffy>0)){
-        quad=4;
-    }
-    //makes values positive 
-    diffx=Math.abs(diffx);
-    diffy=Math.abs(diffy);
-    var ratio=diffx/diffy;
-    var deg=0;
     
-    if(diffx==0){
-        deg=0;
-    }
-    else if(diffy==0){
-        deg=90;
-    }
-    else if (ratio>1){
-        deg=45*ratio;
-        
-    }
-    else if(ratio<1){
-        deg=45/ratio;
-        
-    }
-    rosetta.rotate( rosetta.angle - (((quad-1)*90) + deg));
+    //find the difference in position between mous and rocket
+    var deltax = x - rosetta.x;
+    var deltay = y - rosetta.y;
+
+    
+    //calculate the angle is radions
+    var rad = Math.atan2(deltay,deltax);
+    
+    //convert to degrees
+    var deg = rad * (180 / Math.PI);
+    
+    //shift by 90 degrees
+    deg += 90;
+    
+    //rotate rocket by the different in angle
+    rosetta.rotate( deg - rosetta.angle);
+   
+    //accelerate the rocket
+    rosetta.accelerate(1);   
     
     
 }
