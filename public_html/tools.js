@@ -36,6 +36,7 @@ function createCommets(count){
 
 function reset(){
     
+    //sets background colour
     if(scoreBoard.lives==3){
         document.getElementById("bdyTag").className = "threeLives";
     }
@@ -56,7 +57,7 @@ function reset(){
         rosetta.die();
     }
     // creates rosetta 
-    rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300,0,0);
+    rosetta=new Lander("rocket.gif",5,7,100,50,"left","Rosetta", 300, 300,0,0,"invincibleGlow.gif");
     // creats comets 
     commets=createCommets(cometsNumber);
 
@@ -70,21 +71,37 @@ function reset(){
 
             scoreBoard.addScore(1)					
 					
-	},500);                              
-      
-    /*timerId = setInterval(function(){					 
-
-					
-					//check crashes
-					checkCollide();					
-					
-				},10);*/
-	
+	},500);     
+        
+        
+         
+   
 	
 }
 
 //sets every thing up at start
 function run(){
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }  
+  } else {  
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+  }  
+
+    
+     
     setTimeout(function(){
         createCommets;
                           
@@ -102,7 +119,7 @@ function run(){
         
     soundBank.play("countDown");
     if (soundBank.on==1){
-         setTimeout(reset,7000);    
+         setTimeout(reset,7000);
     }
     
                                 
@@ -273,9 +290,9 @@ function checkCollide(){
                                 
                         if ((firstComet.type=="Lander" || secondComet.type=="Lander") && 
                                 (firstComet.type=="comet" || secondComet.type=="comet")){
-                            
-                            return 1;
-                           
+                            if (firstComet.invincible==0){
+                                return 1;
+                            }
                         }
                         else if ((firstComet.type=="PlasmaBall" || secondComet.type=="PlasmaBall") && 
                                 (firstComet.type=="comet" || secondComet.type=="comet")){
@@ -344,7 +361,7 @@ function killAll(){
 function gameOver(){
 
     //end screen 
-    endScreen=new ScoreBoard(10,"orange",300,100,scoreBoard.score,0,"", "GAME OVER", 100,1,"endScreen",1) //,250,750);
+    endScreen=new ScoreBoard(10,"orange",300,100,scoreBoard.score,0,"", "GAME OVER", 100,1,"endScreen",1);
     scoreBoard.die();
     delete scoreBoard;
     endScreen.setup();
@@ -397,15 +414,17 @@ function followMouse(){
     
     //shift by 90 degrees
     deg += 90;
-    
+   
     //rotate rocket by the different in angle
     rosetta.rotate( deg - rosetta.angle);
    
     //accelerate the rocket
     rosetta.accelerate(1);   
-    
+    scoreBoard.addScore(5);
     
 }
+
+  
 
 
 

@@ -30,7 +30,7 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
         this.dx = dx;
         this.dy = dy;
         this.dead = 0;
-        
+        this.invincible = 1;
         //METHODS
         //*******
         //@@@@@@@
@@ -84,7 +84,6 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 		this.dy=this.dy-(this.dy*2);
 	}
 
-
 	//makes stuff appear on screen 
 	this.setup=function(){
 		
@@ -103,10 +102,10 @@ function SpaceObject(img, health, speed, height,width, direction, name, y, x,dx,
 		
 		var me = this;
 		
-		
-		
+		this.swapImg(this.img2,3000);
+		setTimeout(function(){me.invincible=0}, 3000);
 		this.timerId = setInterval(function(){
-                    
+                     
                     me.move();
                     if (me.dead ==0){
                        var collide = checkCollide();

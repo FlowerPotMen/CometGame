@@ -21,4 +21,8 @@ body {
 #endScreen{
     font-size: 500%;
 }
-
+#startBtn{
+    color: blue;
+    background-color: orange;
+    font-size: 400%
+}
